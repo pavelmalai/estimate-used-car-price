@@ -1,0 +1,11 @@
+# Number of terms = 10
+0	SUV
+1	Monovolum
+2	Berlina
+3	Break
+4	Hatchback
+5	Off-road
+6	Coupe
+7	Minibus
+8	Cabrio
+9	Pickup

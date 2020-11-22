@@ -1,0 +1,1 @@
+1.1.27804.5 @BuiltBy: dlab14-DDVSOWINAGE100 @Branch: release/1.1 @SrcCode: https://github.com/dotnet/machinelearning/tree/d5c4e946934265be152cbfe66939d10921768e67+d5c4e946934265be152cbfe66939d10921768e67

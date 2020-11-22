@@ -1,0 +1,230 @@
+<br>
+<br>
+<br>
+<br>
+<div class="ui main container">
+    <h1 align="center">
+        Estimează preț automobil second-hand
+    </h1>
+    <sui-tabset>
+        <div class="ui top attached tabular menu">
+            <a class="item" suiTabHeader="1">Manual</a>
+            <!-- <a class="item" suiTabHeader="2">De pe site de anunturi</a> -->
+        </div>
+        <div class="ui bottom attached segment" suiTabContent="1">
+            <div class="ui stackable two column vertically divided grid container">
+                <div class="row">
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui three column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">Marca</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <ng-select class="custom" [items]="brands" [(ngModel)]="brand" (change)="onBrandChange(brand)">
+                                        >
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui two column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">Model</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <ng-select class="custom" [items]="models" [(ngModel)]="model">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui two column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">Combustibil</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <ng-select [items]="fuels" [(ngModel)]="fuel" class="disable-arrow disable-dropdown disable-clear-all" [searchable]="false" [clearable]="false" [multiple]="false">
+                                    </ng-select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui two column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">Cutie de viteze</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <ng-select [items]="gearboxes" [(ngModel)]="gearboxes" class="disable-arrow disable-dropdown disable-clear-all" [searchable]="false" [clearable]="false" [multiple]="false">
+                                    </ng-select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui two column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">An fabricatie</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <div class="column">
+                                        <ng-select class="custom" [items]="manufacturingYears" [(ngModel)]="manufacturingYear">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui two column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">Caroserie</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <div class="column">
+                                        <ng-select class="custom" [items]="carBodies" [(ngModel)]="carBody">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui two column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">Capacitate motor</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <div class="custom-slider">
+                                        <ng5-slider id="capacitateSlider" [(value)]="engineCapacity" [options]="engineCapacityOptions"></ng5-slider>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui segment">
+                            <div class="ui two column stackable grid">
+                                <div class="column five wide">
+                                    <div class="ui header mylabel">Rulaj</div>
+                                </div>
+
+                                <div class="column eleven wide">
+                                    <div class="custom-slider">
+                                        <ng5-slider id="rulajSlider" [(value)]="mileage" [options]="mileageOptions">
+                                        </ng5-slider>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <button class="ui primary button" (click)="PredictPrice()">Estimează prețul</button>
+                    </div>
+                    <div class="column header">
+                        <div class="ui header">
+                            <div class="ui message" [hidden]="!response">{{response}}<span> &euro;</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui bottom attached segment" suiTabContent="2">
+
+            <div class="ui two column stackable grid container">
+                <div class="row">
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <div class="eight wide field">
+                                <label>URL</label>
+                                <div class="ui input focus">
+                                    <input id="URL" [(ngModel)]="advertURL" style="width:1200px;" type="text" placeholder="Example: https://www.olx.ro/oferta/golf-4-IDcxc86.html">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <button class="ui primary button" (click)="EstimatePriceFromAdvert()">Estimează prețul</button>
+                </div>
+            </div>
+
+            <br>
+            <div id="scrapedCarDetails" [hidden]="!showScrapedCarDetails">
+                <table class="ui celled table">
+                    <tr>
+                        <td>URL : </td>
+                        <td>{{this.scrapedUsedCar.url}}</td>
+                    </tr>
+                    <tr>
+                        <td>Marca : </td>
+                        <td>{{this.scrapedUsedCar.marca}}</td>
+                    </tr>
+                    <tr>
+                        <td>Model : </td>
+                        <td>{{this.scrapedUsedCar.model}}</td>
+                    </tr>
+                    <tr>
+                        <td>An fabricatie : </td>
+                        <td>{{this.scrapedUsedCar.anFabricatie}}</td>
+                    </tr>
+                    <tr>
+                        <td>Caroserie : </td>
+                        <td>{{this.scrapedUsedCar.caroserie}}</td>
+                    </tr>
+                    <tr>
+                        <td>Rulaj : </td>
+                        <td>{{this.scrapedUsedCar.rulaj}}</td>
+                    </tr>
+                    <tr>
+                        <td>Capacitate motor : </td>
+                        <td>{{this.scrapedUsedCar.capacitateMotor}}</td>
+                    </tr>
+                    <tr>
+                        <td>Cutie de viteze : </td>
+                        <td>{{this.scrapedUsedCar.cutieDeViteze}}</td>
+                    </tr>
+                    <tr>
+                        <td>Combustibil : </td>
+                        <td>{{this.scrapedUsedCar.combustibil}}</td>
+                    </tr>
+                </table>
+                <div>Pret: {{this.scrapedUsedCar.pret}}</div>
+                <div>Pret estimat: {{this.scrapedUsedCar.pretEstimat}}</div>
+            </div>
+        </div>
+    </sui-tabset>
+
+    <router-outlet></router-outlet>
+</div>

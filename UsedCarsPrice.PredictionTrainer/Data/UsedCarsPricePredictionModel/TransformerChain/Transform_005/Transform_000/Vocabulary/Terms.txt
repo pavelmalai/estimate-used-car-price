@@ -1,0 +1,3 @@
+# Number of terms = 2
+0	Automata
+1	Manuala

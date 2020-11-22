@@ -1,0 +1,51 @@
+# Number of terms = 50
+0	Hyundai
+1	Dacia
+2	Seat
+3	BMW
+4	Ford
+5	Opel
+6	Renault
+7	Audi
+8	Volkswagen
+9	Toyota
+10	Land Rover
+11	Mercedes-Benz
+12	Smart
+13	Mitsubishi
+14	Skoda
+15	Chrysler
+16	Nissan
+17	Honda
+18	Fiat
+19	Suzuki
+20	Peugeot
+21	Jeep
+22	Alfa Romeo
+23	Kia
+24	Rover
+25	Lancia
+26	Citroen
+27	Volvo
+28	Subaru
+29	Mazda
+30	Chevrolet
+31	Alte marci
+32	Daihatsu
+33	Daewoo
+34	Jaguar
+35	Lexus
+36	Mini Cooper
+37	SsangYong
+38	Saab
+39	Porsche
+40	Dodge
+41	Aixam
+42	MG
+43	Infiniti
+44	Hummer
+45	Lada
+46	Isuzu
+47	Cadillac
+48	Vauxhall
+49	Pontiac

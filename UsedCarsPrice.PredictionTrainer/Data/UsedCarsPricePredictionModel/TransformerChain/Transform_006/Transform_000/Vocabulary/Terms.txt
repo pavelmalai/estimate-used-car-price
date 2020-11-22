@@ -1,0 +1,6 @@
+# Number of terms = 5
+0	Diesel
+1	GPL
+2	Benzina
+3	Hibrid
+4	Electric
