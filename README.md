@@ -1,3 +1,3 @@
-A web app that estimates the price of a used car in Romania. </br>
+A web app that estimates the price of a used car in Romania using machine learning. </br>
 I created this to learn Angular 2 and ML.NET. </br>
-Deployed at: https://jolly-meitner-e51d1e.netlify.app/
+Demo: https://distracted-shannon-0146bf.netlify.app/
