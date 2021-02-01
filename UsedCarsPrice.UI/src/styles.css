@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #F7FAFC !important;
+}
+
+.ng-select .ng-select-container {
+    min-height: 46px !important;
+    margin-top: 8px;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+    height: 46px !important;
+}
+
+* {
+    font-size: medium;
+}

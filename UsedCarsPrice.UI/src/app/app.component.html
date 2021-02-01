@@ -1,59 +1,192 @@
-<br>
-<br>
-<br>
-<br>
-<div class="ui main container">
-    <h1 align="center">
-        Estimează preț automobil second-hand
-    </h1>
-    <sui-tabset>
-        <div class="ui top attached tabular menu">
-            <a class="item" suiTabHeader="1">Manual</a>
-            <!-- <a class="item" suiTabHeader="2">De pe site de anunturi</a> -->
+<div class="header" *ngIf="!loading">
+    <div class="ui small basic icon buttons languageButtonsContainer">
+        <button class="ui button" (click)='setLocale(LOCALE.RO)' [ngClass]="{'active': currentLocale.toString() === LOCALE.RO.toString()}">
+            RO
+        </button>
+        <button class="ui button" [ngClass]="{'active': currentLocale.toString() === LOCALE.EN.toString()}" (click)='setLocale(LOCALE.EN)'>
+            EN
+        </button>
+    </div>
+</div>
+<!-- NEW -->
+<div class="main" *ngIf="!loading">
+
+    <div class="form-container ">
+        <h1>
+            {{ 'title' | translate }}
+        </h1>
+        <div class="message-container">
+            <sui-accordion class="fluid">
+                <sui-accordion-panel [isOpen]="false">
+                    <div title>
+                        <i class="dropdown icon"></i> {{ 'howItWorks' | translate }}
+                    </div>
+                    <div content header>
+                        <div class="ui icon message info">
+                            <div class="content">
+                                <p>{{ 'howItWorksExplanation1' | translate}}</p>
+                                <p>{{ 'howItWorksExplanation2' | translate}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </sui-accordion-panel>
+            </sui-accordion>
         </div>
-        <div class="ui bottom attached segment" suiTabContent="1">
+        <span class="form-divider">
+            <h4 class="ui horizontal divider header">
+                <i class="car icon"></i>
+            </h4>
+        </span>
+
+
+        <div class="flex-row">
+            <div class="flex-column">
+                <label for="brands">{{ 'brand' | translate }}</label>
+                <ng-select id="brands" [items]="brands" [(ngModel)]="brand" (change)="onBrandChange(brand)" placeholder="{{ 'selectPlaceholder' | translate }}">
+                </ng-select>
+            </div>
+            <div class="flex-column">
+                <label for="models">{{ 'model' | translate }}</label>
+
+                <ng-select id="models" class="custom " [items]="models " [(ngModel)]="model" placeholder="{{ 'selectPlaceholder' | translate }}">
+                </ng-select>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-column">
+                <label for="fuel">{{ 'fuel' | translate }}</label>
+                <ng-template let-option #optionTemplate>
+                    {{ option.name | translate}}
+                </ng-template>
+                <ng-select id="fuel" bindLabel="name" bindValue="id" [items]="fuels" [(ngModel)]="fuel" class="disable-arrow disable-dropdown disable-clear-all" [searchable]="false">
+                    <ng-template ng-label-tmp let-item="item">
+                        <span class="ng-value-label ">{{item.name | translate}}</span>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <span>{{ item.name | translate}}</span>
+                    </ng-template>
+                </ng-select>
+            </div>
+
+            <div class="flex-column">
+                <label for="gearbox">{{ 'gearbox' | translate }}</label>
+
+                <ng-select id="gearbox" bindLabel="name" bindValue="id" [items]="gearboxes " [(ngModel)]="gearbox" placeholder="{{ 'selectPlaceholder' | translate }}" class="disable-arrow disable-dropdown disable-clear-all " [searchable]="false " [clearable]="false "
+                    [multiple]="false ">
+                    <ng-template ng-label-tmp let-item="item">
+                        <span class="ng-value-label ">{{item.name | translate}}</span>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <span>{{ item.name | translate}}</span>
+                    </ng-template>
+                </ng-select>
+
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-column">
+                <label for="year">{{ 'year' | translate }}</label>
+
+                <ng-select id="year" class="custom " [items]="manufacturingYears" [(ngModel)]="manufacturingYear" placeholder="{{ 'selectPlaceholder' | translate }}">
+                </ng-select>
+            </div>
+            <div class="flex-column ">
+                <label for="carBody">{{ 'carBody' | translate }}</label>
+
+                <ng-select id="carBody" class="custom " [items]="carBodies" [(ngModel)]="carBody" placeholder="{{ 'selectPlaceholder' | translate }}">
+                </ng-select>
+            </div>
+
+        </div>
+        <div class="flex-row ">
+            <div class="flex-column">
+                <label for="capacitateSlider">{{ 'engineCapacity' | translate }}</label>
+
+                <div class="custom-slider ">
+                    <ng5-slider id="capacitateSlider" [(value)]="engineCapacity " [options]="engineCapacityOptions "></ng5-slider>
+                </div>
+            </div>
+            <div class="flex-column ">
+                <label for="rulajSlider">{{ 'mileage' | translate }}</label>
+
+                <div class="custom-slider ">
+                    <ng5-slider id="rulajSlider " [(value)]="mileage " [options]="mileageOptions ">
+                    </ng5-slider>
+                </div>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-column">
+                <button class="ui primary button huge" [ngClass]="{'loading': loadingResult}" (click)="PredictPrice()">{{ 'estimateButton' | translate }}</button>
+            </div>
+            <div class="flex-column">
+                <div class="ui message success estimated-price" [hidden]="!response ">{{response}}<span> &euro;</span></div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- OLD -->
+<!-- <div class="main" *ngIf="!loading">
+    <div class="segment form-container ">
+        <div class="form">
+            <h1 align="center" class="ui header">
+                <div>{{ 'title' | translate }}</div>
+            </h1>
+            
+            <br/>
+            <br/>
             <div class="ui stackable two column vertically divided grid container">
                 <div class="row">
                     <div class="column">
                         <div class="ui segment">
                             <div class="ui three column stackable grid">
                                 <div class="column five wide">
-                                    <div class="ui header mylabel">Marca</div>
+                                    <div class="ui header custom-label">{{ 'brand' | translate }}</div>
                                 </div>
 
                                 <div class="column eleven wide">
-                                    <ng-select class="custom" [items]="brands" [(ngModel)]="brand" (change)="onBrandChange(brand)">
-                                        >
+                                    <ng-select class="custom" [items]="brands" [(ngModel)]="brand" (change)="onBrandChange(brand)" placeholder="{{ 'selectPlaceholder' | translate }}">
                                     </ng-select>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div class="ui segment">
-                            <div class="ui two column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header mylabel">Model</div>
+                    <div class="column ">
+                        <div class="ui segment ">
+                            <div class="ui two column stackable grid ">
+                                <div class="column five wide ">
+                                    <div class="ui header custom-label ">{{ 'model' | translate }}</div>
                                 </div>
 
-                                <div class="column eleven wide">
-                                    <ng-select class="custom" [items]="models" [(ngModel)]="model">
+                                <div class="column eleven wide ">
+                                    <ng-select class="custom " [items]="models " [(ngModel)]="model" placeholder="{{ 'selectPlaceholder' | translate }}">
                                     </ng-select>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="column">
-                        <div class="ui segment">
-                            <div class="ui two column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header mylabel">Combustibil</div>
+                <div class="row ">
+                    <div class="column ">
+                        <div class="ui segment ">
+                            <div class="ui two column stackable grid ">
+                                <div class="column five wide ">
+                                    <div class="ui header custom-label ">{{ 'fuel' | translate }}</div>
                                 </div>
-
-                                <div class="column eleven wide">
-                                    <ng-select [items]="fuels" [(ngModel)]="fuel" class="disable-arrow disable-dropdown disable-clear-all" [searchable]="false" [clearable]="false" [multiple]="false">
+                                <div class="column eleven wide ">
+                                    <ng-select bindLabel="name" bindValue="id" [items]="fuels" [(ngModel)]="fuel" class="disable-arrow disable-dropdown disable-clear-all" [searchable]="false">
+                                        <ng-template ng-label-tmp let-item="item">
+                                            <span class="ng-value-label ">{{item.name | translate}}</span>
+                                        </ng-template>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            <span>{{ item.name | translate}}</span>
+                                        </ng-template>
                                     </ng-select>
 
                                 </div>
@@ -63,15 +196,21 @@
 
 
 
-                    <div class="column">
-                        <div class="ui segment">
-                            <div class="ui two column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header mylabel">Cutie de viteze</div>
+                    <div class="column ">
+                        <div class="ui segment ">
+                            <div class="ui two column stackable grid ">
+                                <div class="column five wide ">
+                                    <div class="ui header custom-label ">{{ 'gearbox' | translate }}</div>
                                 </div>
 
-                                <div class="column eleven wide">
-                                    <ng-select [items]="gearboxes" [(ngModel)]="gearboxes" class="disable-arrow disable-dropdown disable-clear-all" [searchable]="false" [clearable]="false" [multiple]="false">
+                                <div class="column eleven wide ">
+                                    <ng-select bindLabel="name" bindValue="id" [items]="gearboxes " [(ngModel)]="gearbox" placeholder="{{ 'selectPlaceholder' | translate }}" class="disable-arrow disable-dropdown disable-clear-all " [searchable]="false " [clearable]="false " [multiple]="false ">
+                                        <ng-template ng-label-tmp let-item="item">
+                                            <span class="ng-value-label ">{{item.name | translate}}</span>
+                                        </ng-template>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            <span>{{ item.name | translate}}</span>
+                                        </ng-template>
                                     </ng-select>
 
                                 </div>
@@ -79,33 +218,33 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="column">
-                        <div class="ui segment">
-                            <div class="ui two column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header mylabel">An fabricatie</div>
+                <div class="row ">
+                    <div class="column ">
+                        <div class="ui segment ">
+                            <div class="ui two column stackable grid ">
+                                <div class="column five wide ">
+                                    <div class="ui header custom-label ">{{ 'year' | translate }}</div>
                                 </div>
 
-                                <div class="column eleven wide">
-                                    <div class="column">
-                                        <ng-select class="custom" [items]="manufacturingYears" [(ngModel)]="manufacturingYear">
+                                <div class="column eleven wide ">
+                                    <div class="column ">
+                                        <ng-select class="custom " [items]="manufacturingYears" [(ngModel)]="manufacturingYear" placeholder="{{ 'selectPlaceholder' | translate }}">
                                         </ng-select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div class="ui segment">
-                            <div class="ui two column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header mylabel">Caroserie</div>
+                    <div class="column ">
+                        <div class="ui segment ">
+                            <div class="ui two column stackable grid ">
+                                <div class="column five wide ">
+                                    <div class="ui header custom-label ">{{ 'carBody' | translate }}</div>
                                 </div>
 
-                                <div class="column eleven wide">
-                                    <div class="column">
-                                        <ng-select class="custom" [items]="carBodies" [(ngModel)]="carBody">
+                                <div class="column eleven wide ">
+                                    <div class="column ">
+                                        <ng-select class="custom " [items]="carBodies" [(ngModel)]="carBody" placeholder="{{ 'selectPlaceholder' | translate }}">
                                         </ng-select>
                                     </div>
                                 </div>
@@ -114,32 +253,32 @@
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="column">
-                        <div class="ui segment">
+                <div class="row ">
+                    <div class="column ">
+                        <div class="ui segment ">
                             <div class="ui two column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header mylabel">Capacitate motor</div>
+                                <div class="column five wide ">
+                                    <div class="ui header custom-label">{{ 'engineCapacity' | translate }}</div>
                                 </div>
 
-                                <div class="column eleven wide">
-                                    <div class="custom-slider">
-                                        <ng5-slider id="capacitateSlider" [(value)]="engineCapacity" [options]="engineCapacityOptions"></ng5-slider>
+                                <div class="column eleven wide ">
+                                    <div class="custom-slider ">
+                                        <ng5-slider id="capacitateSlider" [(value)]="engineCapacity " [options]="engineCapacityOptions "></ng5-slider>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div class="ui segment">
+                    <div class="column ">
+                        <div class="ui segment ">
                             <div class="ui two column stackable grid">
                                 <div class="column five wide">
-                                    <div class="ui header mylabel">Rulaj</div>
+                                    <div class="ui header custom-label ">{{ 'mileage' | translate }}</div>
                                 </div>
 
                                 <div class="column eleven wide">
-                                    <div class="custom-slider">
-                                        <ng5-slider id="rulajSlider" [(value)]="mileage" [options]="mileageOptions">
+                                    <div class="custom-slider ">
+                                        <ng5-slider id="rulajSlider " [(value)]="mileage " [options]="mileageOptions ">
                                         </ng5-slider>
                                     </div>
                                 </div>
@@ -147,84 +286,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="column">
-                        <button class="ui primary button" (click)="PredictPrice()">Estimează prețul</button>
+                <div class="row ">
+                    <div class="column ">
+                        <button class="ui primary button " (click)="PredictPrice() ">{{ 'estimateButton' | translate }}</button>
                     </div>
-                    <div class="column header">
-                        <div class="ui header">
-                            <div class="ui message" [hidden]="!response">{{response}}<span> &euro;</span></div>
+                    <div class="column header ">
+                        <div class="ui header ">
+                            <div class="ui message " [hidden]="!response ">{{response}}<span> &euro;</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ui bottom attached segment" suiTabContent="2">
 
-            <div class="ui two column stackable grid container">
-                <div class="row">
-                    <div class="ui form">
-                        <div class="inline fields">
-                            <div class="eight wide field">
-                                <label>URL</label>
-                                <div class="ui input focus">
-                                    <input id="URL" [(ngModel)]="advertURL" style="width:1200px;" type="text" placeholder="Example: https://www.olx.ro/oferta/golf-4-IDcxc86.html">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="row">
-                    <button class="ui primary button" (click)="EstimatePriceFromAdvert()">Estimează prețul</button>
-                </div>
-            </div>
-
-            <br>
-            <div id="scrapedCarDetails" [hidden]="!showScrapedCarDetails">
-                <table class="ui celled table">
-                    <tr>
-                        <td>URL : </td>
-                        <td>{{this.scrapedUsedCar.url}}</td>
-                    </tr>
-                    <tr>
-                        <td>Marca : </td>
-                        <td>{{this.scrapedUsedCar.marca}}</td>
-                    </tr>
-                    <tr>
-                        <td>Model : </td>
-                        <td>{{this.scrapedUsedCar.model}}</td>
-                    </tr>
-                    <tr>
-                        <td>An fabricatie : </td>
-                        <td>{{this.scrapedUsedCar.anFabricatie}}</td>
-                    </tr>
-                    <tr>
-                        <td>Caroserie : </td>
-                        <td>{{this.scrapedUsedCar.caroserie}}</td>
-                    </tr>
-                    <tr>
-                        <td>Rulaj : </td>
-                        <td>{{this.scrapedUsedCar.rulaj}}</td>
-                    </tr>
-                    <tr>
-                        <td>Capacitate motor : </td>
-                        <td>{{this.scrapedUsedCar.capacitateMotor}}</td>
-                    </tr>
-                    <tr>
-                        <td>Cutie de viteze : </td>
-                        <td>{{this.scrapedUsedCar.cutieDeViteze}}</td>
-                    </tr>
-                    <tr>
-                        <td>Combustibil : </td>
-                        <td>{{this.scrapedUsedCar.combustibil}}</td>
-                    </tr>
-                </table>
-                <div>Pret: {{this.scrapedUsedCar.pret}}</div>
-                <div>Pret estimat: {{this.scrapedUsedCar.pretEstimat}}</div>
-            </div>
-        </div>
-    </sui-tabset>
-
-    <router-outlet></router-outlet>
-</div>
+    </div> -->

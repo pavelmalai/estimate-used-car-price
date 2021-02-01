@@ -1,15 +1,3 @@
-.mylabel {
-    padding-top: 10px;
-}
-
-.mycolumn {
-    width: 50%;
-}
-
-ui.main.container{
-    max-width: 960px!important;
-}
-
 .ng-select.disable-dropdown ng-dropdown-panel {
     display: none;
 }
@@ -64,9 +52,94 @@ ui.main.container{
     background: orange;
 }
 
-
 button:hover {
     color: #7795f8;
     transform: translateY(-1px);
     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.languageButtonsContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+
+.main {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 5px;
+}
+
+.form-container {
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    box-shadow: -1px 0 0 0px #e3e8ee;
+    border: 1px solid rgba(34, 36, 38, .15);
+    padding: 3em 3em;
+    border-radius: .28571429rem;
+    margin: 5%;
+    max-width: 800px;
+}
+
+.flex-column {
+    max-width: 300px;
+    width: 300px;
+    margin: 20px;
+}
+
+.flex-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dropdown {
+    width: 300px;
+}
+
+h1 {
+    margin: 10px;
+}
+
+.message-container {
+    margin-top: 30px;
+}
+
+label {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.estimated-price {
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+}
+
+.form-divider {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.ui.header .icon:only-child {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.custom-header {
+    font-size: 1.3em;
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.header-icon {
+    font-size: 1em !important;
 }

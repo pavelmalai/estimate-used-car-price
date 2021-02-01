@@ -1,0 +1,21 @@
+{
+    "title": "Estimează preț mașină second-hand în România",
+    "brand": "Marca",
+    "model": "Model",
+    "fuel": "Combustibil",
+    "gearbox": "Cutie de viteze",
+    "year": "Anul fabricației",
+    "carBody": "Caroserie",
+    "engineCapacity": "Capacitate cilindrică",
+    "mileage": "Kilometraj",
+    "estimateButton": "Estimează prețul",
+    "fuels.gas": "Benzină",
+    "fuels.diesel": "Diesel",
+    "gearbox.automatic": "Automat",
+    "gearbox.manual": "Manual",
+    "selectPlaceholder": "Selectează",
+    "howItWorks": "Cum funcționează?",
+    "howItWorksExplanation1": "Aplicația analizează mai mult de 1 milion de anunțuri de autoturisme second-hand din România și folosește un algoritm de învățare automată pentru a estima prețul aproximativ pe piață, bazat pe caracteristicile de mai jos.",
+    "howItWorksExplanation2": "Modelul the învățare automată a fost generat folosind analiza de regresie, cu librăria ML.NET.",
+    "howItWorksExplanation3": "Notă: Aplicația este în construcție."
+}
