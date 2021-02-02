@@ -83,7 +83,7 @@ button:hover {
     border: 1px solid rgba(34, 36, 38, .15);
     padding: 3em 3em;
     border-radius: .28571429rem;
-    margin: 5%;
+    margin: 3%;
     max-width: 800px;
 }
 
@@ -142,4 +142,13 @@ label {
 
 .header-icon {
     font-size: 1em !important;
+}
+
+.estimate-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.estimate-button {
+    width: 300px;
 }

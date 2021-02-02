@@ -1,3 +1,5 @@
+<title> {{ 'title' | translate }}
+</title>
 <div class="header" *ngIf="!loading">
     <div class="ui small basic icon buttons languageButtonsContainer">
         <button class="ui button" (click)='setLocale(LOCALE.RO)' [ngClass]="{'active': currentLocale.toString() === LOCALE.RO.toString()}">
@@ -8,7 +10,6 @@
         </button>
     </div>
 </div>
-<!-- NEW -->
 <div class="main" *ngIf="!loading">
 
     <div class="form-container ">
@@ -26,6 +27,7 @@
                             <div class="content">
                                 <p>{{ 'howItWorksExplanation1' | translate}}</p>
                                 <p>{{ 'howItWorksExplanation2' | translate}}</p>
+                                <p>{{ 'howItWorksExplanation3' | translate}}</p>
                             </div>
                         </div>
                     </div>
@@ -116,188 +118,12 @@
             </div>
         </div>
         <div class="flex-row">
-            <div class="flex-column">
-                <button class="ui primary button huge" [ngClass]="{'loading': loadingResult}" (click)="PredictPrice()">{{ 'estimateButton' | translate }}</button>
+            <div class="flex-column estimate-button-container">
+                <button class="ui primary button huge estimate-button" [ngClass]="{'loading': loadingResult}" (click)="PredictPrice()">{{ 'estimateButton' | translate }}</button>
             </div>
             <div class="flex-column">
                 <div class="ui message success estimated-price" [hidden]="!response ">{{response}}<span> &euro;</span></div>
             </div>
         </div>
-
     </div>
-
-
 </div>
-
-
-
-<!-- OLD -->
-<!-- <div class="main" *ngIf="!loading">
-    <div class="segment form-container ">
-        <div class="form">
-            <h1 align="center" class="ui header">
-                <div>{{ 'title' | translate }}</div>
-            </h1>
-            
-            <br/>
-            <br/>
-            <div class="ui stackable two column vertically divided grid container">
-                <div class="row">
-                    <div class="column">
-                        <div class="ui segment">
-                            <div class="ui three column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header custom-label">{{ 'brand' | translate }}</div>
-                                </div>
-
-                                <div class="column eleven wide">
-                                    <ng-select class="custom" [items]="brands" [(ngModel)]="brand" (change)="onBrandChange(brand)" placeholder="{{ 'selectPlaceholder' | translate }}">
-                                    </ng-select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column ">
-                        <div class="ui segment ">
-                            <div class="ui two column stackable grid ">
-                                <div class="column five wide ">
-                                    <div class="ui header custom-label ">{{ 'model' | translate }}</div>
-                                </div>
-
-                                <div class="column eleven wide ">
-                                    <ng-select class="custom " [items]="models " [(ngModel)]="model" placeholder="{{ 'selectPlaceholder' | translate }}">
-                                    </ng-select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="column ">
-                        <div class="ui segment ">
-                            <div class="ui two column stackable grid ">
-                                <div class="column five wide ">
-                                    <div class="ui header custom-label ">{{ 'fuel' | translate }}</div>
-                                </div>
-                                <div class="column eleven wide ">
-                                    <ng-select bindLabel="name" bindValue="id" [items]="fuels" [(ngModel)]="fuel" class="disable-arrow disable-dropdown disable-clear-all" [searchable]="false">
-                                        <ng-template ng-label-tmp let-item="item">
-                                            <span class="ng-value-label ">{{item.name | translate}}</span>
-                                        </ng-template>
-                                        <ng-template ng-option-tmp let-item="item">
-                                            <span>{{ item.name | translate}}</span>
-                                        </ng-template>
-                                    </ng-select>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="column ">
-                        <div class="ui segment ">
-                            <div class="ui two column stackable grid ">
-                                <div class="column five wide ">
-                                    <div class="ui header custom-label ">{{ 'gearbox' | translate }}</div>
-                                </div>
-
-                                <div class="column eleven wide ">
-                                    <ng-select bindLabel="name" bindValue="id" [items]="gearboxes " [(ngModel)]="gearbox" placeholder="{{ 'selectPlaceholder' | translate }}" class="disable-arrow disable-dropdown disable-clear-all " [searchable]="false " [clearable]="false " [multiple]="false ">
-                                        <ng-template ng-label-tmp let-item="item">
-                                            <span class="ng-value-label ">{{item.name | translate}}</span>
-                                        </ng-template>
-                                        <ng-template ng-option-tmp let-item="item">
-                                            <span>{{ item.name | translate}}</span>
-                                        </ng-template>
-                                    </ng-select>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="column ">
-                        <div class="ui segment ">
-                            <div class="ui two column stackable grid ">
-                                <div class="column five wide ">
-                                    <div class="ui header custom-label ">{{ 'year' | translate }}</div>
-                                </div>
-
-                                <div class="column eleven wide ">
-                                    <div class="column ">
-                                        <ng-select class="custom " [items]="manufacturingYears" [(ngModel)]="manufacturingYear" placeholder="{{ 'selectPlaceholder' | translate }}">
-                                        </ng-select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column ">
-                        <div class="ui segment ">
-                            <div class="ui two column stackable grid ">
-                                <div class="column five wide ">
-                                    <div class="ui header custom-label ">{{ 'carBody' | translate }}</div>
-                                </div>
-
-                                <div class="column eleven wide ">
-                                    <div class="column ">
-                                        <ng-select class="custom " [items]="carBodies" [(ngModel)]="carBody" placeholder="{{ 'selectPlaceholder' | translate }}">
-                                        </ng-select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row ">
-                    <div class="column ">
-                        <div class="ui segment ">
-                            <div class="ui two column stackable grid">
-                                <div class="column five wide ">
-                                    <div class="ui header custom-label">{{ 'engineCapacity' | translate }}</div>
-                                </div>
-
-                                <div class="column eleven wide ">
-                                    <div class="custom-slider ">
-                                        <ng5-slider id="capacitateSlider" [(value)]="engineCapacity " [options]="engineCapacityOptions "></ng5-slider>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column ">
-                        <div class="ui segment ">
-                            <div class="ui two column stackable grid">
-                                <div class="column five wide">
-                                    <div class="ui header custom-label ">{{ 'mileage' | translate }}</div>
-                                </div>
-
-                                <div class="column eleven wide">
-                                    <div class="custom-slider ">
-                                        <ng5-slider id="rulajSlider " [(value)]="mileage " [options]="mileageOptions ">
-                                        </ng5-slider>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="column ">
-                        <button class="ui primary button " (click)="PredictPrice() ">{{ 'estimateButton' | translate }}</button>
-                    </div>
-                    <div class="column header ">
-                        <div class="ui header ">
-                            <div class="ui message " [hidden]="!response ">{{response}}<span> &euro;</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    </div> -->
