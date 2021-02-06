@@ -10,7 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using UsedCarsPrice.Core.Models;
+using UsedCarsPrice.Common.Models;
 using UsedCarsPrice.WebScraper.Services.Utils;
 
 namespace UsedCarsPrice.WebScraper.Services.Scraping
@@ -306,7 +306,7 @@ namespace UsedCarsPrice.WebScraper.Services.Scraping
         {
             using (UsedCarsDbContext db = new UsedCarsDbContext())
             {
-                int totalValidRecords = db.Usedcars.Count(c => c.Scraped == (int)ProcessingStatus.Processed && c.Marca != null && c.Caroserie != null && c.CutieDeViteze != null && c.Combustibil != null && c.CapacitateMotor != null && c.Rulaj != null && c.Pret != null);
+                int totalValidRecords = db.Usedcars.Count(c => c.Scraped == (int)ProcessingStatus.Processed && c.Brand != null && c.Body != null && c.Gearbox != null && c.Fuel != null && c.EngineCapacity != null && c.Mileage != null && c.Price != null);
 
                 db.Scrapinglogs.Add(new ScrapingLogs()
                 {

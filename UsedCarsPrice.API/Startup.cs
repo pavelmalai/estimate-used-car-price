@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.ML;
-using UsedCarsPrice.Core.Models;
+using UsedCarsPrice.Common.Models;
 
 namespace UsedCarsPrice.API
 {
@@ -23,7 +23,7 @@ namespace UsedCarsPrice.API
         {
             services.AddCors();
             services.AddControllers();
-            services.AddPredictionEnginePool<UsedCarMLModel, UsedCarPricePrediction>().FromFile("Assets/UsedCarsPricePredictionModel.zip");
+            services.AddPredictionEnginePool<UsedCarMlModel, UsedCarPricePrediction>().FromFile("Assets/UsedCarsPricePredictionModel.zip");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,21 @@
+{
+    "title": "Estimate the price of a second-hand car in Romania",
+    "brand": "Brand",
+    "model": "Model",
+    "fuel": "Fuel",
+    "gearbox": "Gearbox",
+    "year": "Year made",
+    "carBody": "Car body",
+    "engineCapacity": "Engine capacity",
+    "mileage": "Mileage (km)",
+    "estimateButton": "Estimate the price",
+    "fuels.gas": "Gas",
+    "fuels.diesel": "Diesel",
+    "gearbox.automatic": "Automatic",
+    "gearbox.manual": "Manual",
+    "selectPlaceholder": "Select",
+    "howItWorks": "How does it work?",
+    "howItWorksExplanation1": "The application analyzes more than 1 million ads of second-hand cars put for sale in Romania, and uses machine learning to estimate an aproximate price on the market, based on the car characteristics below.",
+    "howItWorksExplanation2": "The model machine learning was trained using regression with the ML.NET library.",
+    "howItWorksExplanation3": "Note: The application is work in progress."
+}

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text.Json;
-using UsedCarsPrice.Core.Models;
+using UsedCarsPrice.Common.Models;
 
 namespace UsedCarsPrice.WebScraper.Services.Utils
 {
@@ -80,7 +80,7 @@ namespace UsedCarsPrice.WebScraper.Services.Utils
         {
             using (UsedCarsDbContext db = new UsedCarsDbContext())
             {
-                var brands = db.Usedcars.GroupBy(c => c.Marca)
+                var brands = db.Usedcars.GroupBy(c => c.Brand)
                     .Select(n => new
                     {
                         marca = n.Key,
@@ -94,7 +94,7 @@ namespace UsedCarsPrice.WebScraper.Services.Utils
                 Dictionary<string, List<string>> models = new Dictionary<string, List<string>>();
                 foreach (var brand in brands)
                 {
-                    var modeleMarca = db.Usedcars.Where(c => c.Marca == brand)
+                    var modeleMarca = db.Usedcars.Where(c => c.Brand == brand)
                         .GroupBy(g => g.Model)
                         .Select(n => new
                         {

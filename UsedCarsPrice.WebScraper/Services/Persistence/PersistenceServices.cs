@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using UsedCarsPrice.Core.Models;
+using UsedCarsPrice.Common.Models;
 
 namespace UsedCarsPrice.WebScraper.Services.Utils
 {

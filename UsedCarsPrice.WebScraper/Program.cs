@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using UsedCarsPrice.Core.Models;
+using UsedCarsPrice.Common.Models;
 using UsedCarsPrice.WebScraper.Services.Scraping;
 
 namespace UsedCarsPrice.WebScraper

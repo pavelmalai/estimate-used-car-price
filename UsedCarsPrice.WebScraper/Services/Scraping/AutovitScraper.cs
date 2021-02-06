@@ -7,7 +7,7 @@ using UsedCarsPrice.WebScraper.Services.Scraping;
 using Serilog;
 using System.Threading;
 using HtmlAgilityPack;
-using UsedCarsPrice.Core.Models;
+using UsedCarsPrice.Common.Models;
 using UsedCarsPrice.WebScraper.Services.Utils;
 
 namespace UsedCarsPrice.WebScraper.Services.Scraping
@@ -34,37 +34,37 @@ namespace UsedCarsPrice.WebScraper.Services.Scraping
                 {
                     try
                     {
-                        usedCar.Titlu = htmlDoc.DocumentNode.SelectSingleNode("//h1")?.FirstChild.InnerText;
-                        usedCar.Titlu = HtmlUtils.SanitizeString(usedCar.Titlu);
+                        usedCar.Title = htmlDoc.DocumentNode.SelectSingleNode("//h1")?.FirstChild.InnerText;
+                        usedCar.Title = HtmlUtils.SanitizeString(usedCar.Title);
                         var descriere = htmlDoc.DocumentNode.Descendants().Where(n => n.Name == "div" && n.HasClass("offer-description__description")).FirstOrDefault()?.InnerText;
-                        usedCar.Descriere = HtmlUtils.SanitizeString(descriere);
+                        usedCar.Description = HtmlUtils.SanitizeString(descriere);
 
                         //Features
                         usedCar.OferitDe = ScrapeAdvertFeature("Oferit de", htmlDoc);
                         usedCar.Model = ScrapeAdvertFeature("Model", htmlDoc);
-                        usedCar.Marca = ScrapeAdvertFeature("Marca", htmlDoc);
-                        usedCar.AnFabricatie = ScrapeAdvertFeature("Anul fabricatiei", htmlDoc);
-                        usedCar.Combustibil = ScrapeAdvertFeature("Combustibil", htmlDoc);
-                        usedCar.CutieDeViteze = ScrapeAdvertFeature("Cutie de viteze", htmlDoc);
-                        usedCar.Caroserie = ScrapeAdvertFeature("Caroserie", htmlDoc);
-                        usedCar.Culoare = ScrapeAdvertFeature("Culoare", htmlDoc);
+                        usedCar.Brand = ScrapeAdvertFeature("Brand", htmlDoc);
+                        usedCar.Year = ScrapeAdvertFeature("Anul fabricatiei", htmlDoc);
+                        usedCar.Fuel = ScrapeAdvertFeature("Fuel", htmlDoc);
+                        usedCar.Gearbox = ScrapeAdvertFeature("Cutie de viteze", htmlDoc);
+                        usedCar.Body = ScrapeAdvertFeature("Body", htmlDoc);
+                        usedCar.Color = ScrapeAdvertFeature("Color", htmlDoc);
                         usedCar.Stare = FixCarState(ScrapeAdvertFeature("Stare", htmlDoc));
 
                         float capacitateMotorTemp;
                         bool capacitateWasParsed = float.TryParse(ScrapeAdvertFeature("Capacitate cilindrica", htmlDoc, removeNonNumericCharacters: true, capacitateMotor: true), out capacitateMotorTemp);
                         if (capacitateWasParsed)
                         {
-                            usedCar.CapacitateMotor = capacitateMotorTemp;
+                            usedCar.EngineCapacity = capacitateMotorTemp;
                         }
 
                         float rulajTemp;
                         bool rulajWasParsed = float.TryParse(ScrapeAdvertFeature("Km", htmlDoc, removeNonNumericCharacters: true), out rulajTemp);
                         if (rulajWasParsed)
                         {
-                            usedCar.Rulaj = rulajTemp;
+                            usedCar.Mileage = rulajTemp;
                         }
 
-                        //Pret
+                        //Price
                         string pret = htmlDoc.DocumentNode.Descendants()
                             .Where(n => n.Name == "span" && n.HasClass("offer-price__number"))
                             .FirstOrDefault()?.InnerText;
@@ -73,7 +73,7 @@ namespace UsedCarsPrice.WebScraper.Services.Scraping
                         bool pretWasParsed = float.TryParse(pret, out pretTemp);
                         if (pretWasParsed)
                         {
-                            usedCar.Pret = pretTemp;
+                            usedCar.Price = pretTemp;
                         }
 
                         usedCar.Scraped = (int)ProcessingStatus.Processed;

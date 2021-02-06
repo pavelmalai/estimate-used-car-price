@@ -72,7 +72,7 @@ namespace UsedCarsPrice.Common.Models
 
                 entity.Property(e => e.Id).HasColumnType("int(11)");
 
-                entity.Property(e => e.YearCreated).HasColumnType("text");
+                entity.Property(e => e.Year).HasColumnType("text");
 
                 entity.Property(e => e.Body).HasColumnType("text");
 

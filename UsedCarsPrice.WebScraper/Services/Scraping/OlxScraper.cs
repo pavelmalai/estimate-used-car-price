@@ -5,7 +5,7 @@ using System.Linq;
 using Serilog;
 using System.Threading;
 using HtmlAgilityPack;
-using UsedCarsPrice.Core.Models;
+using UsedCarsPrice.Common.Models;
 using UsedCarsPrice.WebScraper.Services.Utils;
 
 namespace UsedCarsPrice.WebScraper.Services.Scraping
@@ -69,16 +69,16 @@ namespace UsedCarsPrice.WebScraper.Services.Scraping
                     bool parsed = float.TryParse(HtmlUtils.RemoveNonNumericCharacters(pret), out pretParsed);
                     if (parsed)
                     {
-                        usedCar.Pret = pretParsed;
+                        usedCar.Price = pretParsed;
                     }
                 }
 
                 //an fabricatie
                 var anDeFabricatie = GetDetail(htmlDoc, "An de fabricatie");
-                usedCar.AnFabricatie = anDeFabricatie;
+                usedCar.Year = anDeFabricatie;
 
-                usedCar.Titlu = HtmlUtils.RemoveNewLineCharacters(htmlDoc.DocumentNode.SelectSingleNode("//h1")?.InnerText);
-                usedCar.Descriere = HtmlUtils.RemoveNewLineCharacters(htmlDoc.GetElementbyId("textContent")?.InnerText);
+                usedCar.Title = HtmlUtils.RemoveNewLineCharacters(htmlDoc.DocumentNode.SelectSingleNode("//h1")?.InnerText);
+                usedCar.Description = HtmlUtils.RemoveNewLineCharacters(htmlDoc.GetElementbyId("textContent")?.InnerText);
 
                 var oferitDe = GetDetail(htmlDoc, "Oferit de");
                 usedCar.OferitDe = oferitDe;
@@ -88,44 +88,44 @@ namespace UsedCarsPrice.WebScraper.Services.Scraping
                 usedCar.Model = model;
 
                 //combustibil
-                var combustibil = GetDetail(htmlDoc, "Combustibil");
-                usedCar.Combustibil = combustibil = GetDetail(htmlDoc, "Combustibil");
+                var combustibil = GetDetail(htmlDoc, "Fuel");
+                usedCar.Fuel = combustibil = GetDetail(htmlDoc, "Fuel");
 
                
 
 
                 //caroserie
-                var caroserie = GetDetail(htmlDoc, "Caroserie");
-                usedCar.Caroserie = caroserie != null ? caroserie : null;
+                var caroserie = GetDetail(htmlDoc, "Body");
+                usedCar.Body = caroserie != null ? caroserie : null;
 
                 //stare
                 var stare = GetDetail(htmlDoc, "Stare");
                 usedCar.Stare = stare;
 
                 //marca
-                var marca = GetDetail(htmlDoc, "Marca");
-                usedCar.Marca = marca;
+                var marca = GetDetail(htmlDoc, "Brand");
+                usedCar.Brand = marca;
 
                 //culoare
-                var culoare = GetDetail(htmlDoc, "Culoare");
-                usedCar.Culoare = culoare;
+                var culoare = GetDetail(htmlDoc, "Color");
+                usedCar.Color = culoare;
 
                 //Cutie de viteze	
                 var cutie = GetDetail(htmlDoc, "Cutie de viteze");
-                usedCar.CutieDeViteze = cutie;
+                usedCar.Gearbox = cutie;
 
-                //Rulaj	
-                var rulaj = GetDetail(htmlDoc, "Rulaj", true);
+                //Turnover	
+                var rulaj = GetDetail(htmlDoc, "Turnover", true);
                 if (rulaj != null)
                 {
-                    usedCar.Rulaj = float.Parse(rulaj);
+                    usedCar.Mileage = float.Parse(rulaj);
                 }
 
                 //Capacitate motor	
                 var capacitate = GetDetail(htmlDoc, "Capacitate motor", true);
                 if (capacitate != null)
                 {
-                    usedCar.CapacitateMotor = float.Parse(capacitate);
+                    usedCar.EngineCapacity = float.Parse(capacitate);
                 }
 
                 return usedCar;

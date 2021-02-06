@@ -124,26 +124,29 @@ export class AppComponent {
   PredictPrice() {
     this.loadingResult = true;
     let usedCar = new UsedCar();
-    usedCar.marca = this.brand;
+    usedCar.brand = this.brand;
     usedCar.model = this.model;
-    usedCar.caroserie = this.carBody;
-    usedCar.cutieDeViteze = this.gearbox;
-    usedCar.anFabricatie = this.manufacturingYear;
-    usedCar.combustibil = this.fuel;
-    usedCar.capacitateMotor = this.engineCapacity;
-    usedCar.rulaj = this.mileage;
+    usedCar.body = this.carBody;
+    usedCar.gearbox = this.gearbox;
+    usedCar.year = this.manufacturingYear;
+    usedCar.fuel = this.fuel;
+    usedCar.engineCapacity = this.engineCapacity;
+    usedCar.mileage = this.mileage;
 
+    console.log(JSON.parse(JSON.stringify(usedCar)));
     this.pricePredictionService.GetPrice(usedCar).subscribe(data => {
       this.response = Number(data).toFixed();
       this.loadingResult = false;
     },
-      Error => { alert("Error trying to access the backend service!") });
+      Error => {
+        this.loadingResult = false;
+        alert("Error trying to access the backend service!")
+      });
   }
 
   EstimatePriceFromAdvert() {
     this.pricePredictionService.ScrapeAdvert(this.advertURL).subscribe((data: UsedCar) => {
       this.scrapedUsedCar = data;
-      console.log(this.scrapedUsedCar)
     },
       Error => { alert("Error trying to access the backend service!") });
   }

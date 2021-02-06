@@ -42,7 +42,7 @@ namespace UsedCarsPrice.API.Controllers
             {
                 UsedCarPricePrediction prediction = _predictionEnginePool.Predict(input.ToMlModel());
 
-                price = prediction.Pret;
+                price = prediction.Price;
             }
             catch (Exception e)
             {

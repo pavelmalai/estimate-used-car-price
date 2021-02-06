@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace UsedCarsPrice.Common.Models
 {
@@ -13,11 +11,11 @@ namespace UsedCarsPrice.Common.Models
         public string Model { get; set; }
         public string Body { get; set; }
         public string Gearbox { get; set; }
-        public string YearCreated { get; set; }
+        public string Year { get; set; }
         public string OferitDe { get; set; }
         public string Fuel { get; set; }
         public string Color { get; set; }
-        public float? Turnover { get; set; }
+        public float? Mileage { get; set; }
         public float? EngineCapacity { get; set; }
         public string Description { get; set; }
         public string Stare { get; set; }
@@ -25,6 +23,22 @@ namespace UsedCarsPrice.Common.Models
         public float? Price { get; set; }
         public DateTime? LastModified { get; set; }
         public string GoupId { get; set; }
+
+        public UsedCarMlModel ToMlModel()
+        {
+            return new UsedCarMlModel()
+            {
+                YearCreated = float.Parse(Year),
+                Brand = Brand,
+                Model = Model,
+                Body = Body,
+                Gearbox = Gearbox,
+                Fuel = Fuel,
+                Mileage = Mileage.HasValue ? Mileage.Value : default(float),
+                EngineCapacity = EngineCapacity.HasValue ? EngineCapacity.Value : default(float),
+                Price = Price.HasValue ? Price.Value : default(float)
+            };
+        }
 
     }
 }

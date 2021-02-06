@@ -1,14 +1,14 @@
 export class UsedCar
 {
     public url:String;
-    public marca:String;
+    public brand:String;
     public model:String;
-    public caroserie:String;
-    public cutieDeViteze:String;
-    public anFabricatie:number;
-    public combustibil:String;
-    public capacitateMotor:Number;
-    public rulaj:Number;
-    public pret:Number;
-    public pretEstimat:Number;
+    public body:String;
+    public gearbox:String;
+    public year:number;
+    public fuel:String;
+    public engineCapacity:Number;
+    public mileage:Number;
+    public price:Number;
+    public estimatedPrice:Number;
 }
